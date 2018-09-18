@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--<properties resource="db.properties"/>-->
+
+    <!--<settings>-->
+    <!--&lt;!&ndash;打开延迟加载开关-->
+    <!--将积极加载改为消极加载，即按需加载&ndash;&gt;-->
+    <!--<setting name="lazyLoadingEnabled" value="true"/>-->
+    <!--<setting name="aggressiveLazyLoading" value="true"/>-->
+    <!--</settings>-->
+
+    <!-- 配置别名 -->
+     <typeAliases>
+        <!-- 批量扫描别名 -->
+        <package name="com.heqin.learnssm.po"/>
+    </typeAliases>
+
+    <!--由于使用spring和mybatis整合包进行mapper扫描，所以这里就不用配置了
+         但是必须遵循需要讲mapper接口的类名和mapper.xml文件名称保持一致，且在一个目录中-->
+</configuration>
