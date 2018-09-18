@@ -9,5 +9,5 @@ package com.heqin.learnssm.po;
 
 public class ItemsCustom extends Items{
     //添加扩展商品的属性
-
+    // 因为继承自Items,所以在Items中添加校验信息
 }

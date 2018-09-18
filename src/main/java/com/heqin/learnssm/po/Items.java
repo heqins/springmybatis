@@ -7,14 +7,13 @@ import java.util.Date;
 public class Items {
     private Integer id;
 
-    @Size(min = 1,max = 30,message = "{items.name.length.error}")
+    @Size(min = 1,max = 5,message = "{items.name.length.error}")
     private String name;
 
     private Float price;
 
     private String pic;
 
-    @NotNull(message = "{items.createtime.isNUll}")
     private Date createtime;
 
     private String detail;

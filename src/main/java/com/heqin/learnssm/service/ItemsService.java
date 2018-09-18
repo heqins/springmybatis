@@ -10,7 +10,7 @@ public interface ItemsService {
     public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo) throws Exception;
 //
 //    // 根据id查询商品信息
-//    public ItemsCustom findItemsById(Integer id);
+    public ItemsCustom findItemsById(Integer id);
 //
 //    // 修改商品信息
 //    public void updateItems(Integer id, ItemsCustom itemsCustom) throws Exception;

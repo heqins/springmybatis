@@ -5,9 +5,17 @@ import com.heqin.learnssm.po.ItemsQueryVo;
 import com.heqin.learnssm.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 //使用@Controller来标识它是一个控制器
@@ -41,15 +49,38 @@ public class ItemsController {
         return modelAndView;
     }
 
-    @RequestMapping("/editItems")
-    public ModelAndView editItems() throws Exception {
-        ModelAndView modelAndView = new ModelAndView();
+    // 商品信息修改页面的展示
+    @RequestMapping(value="/editItems", method={RequestMethod.GET, RequestMethod.POST})
+    public String  editItems(Model model, @RequestParam(value="id", required = true)Integer items_id) throws Exception {
 
-        modelAndView.setViewName("items/editItems");
+        ItemsCustom itemsCustom = itemsService.findItemsById(items_id);
 
-        return modelAndView;
+        // 返回的是逻辑视图名
+        model.addAttribute("itemsCustom", itemsCustom);
+
+        return "items/editItems";
     }
 
+    // 商品修改提交
+    @RequestMapping("/editItemsSubmit")
+    public String editItemsSubmit(Model model, @Validated ItemsCustom itemsCustom, HttpServletRequest request,
+                                  Integer id, BindingResult bindingResult) throws Exception {
+        if(bindingResult.hasErrors()) {
+            // 输出错误信息
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+
+            for (ObjectError objectError : allErrors) {
+                // 输出错误信息
+                System.out.println(objectError.getDefaultMessage());
+            }
+            // 将错误信息传到页面
+            model.addAttribute("items", itemsCustom);
+
+            // 出错重新到商品修改页面
+            return "items/editItems";
+        }
+        return "success";
+    }
     // 批量删除商品的信息
     @RequestMapping("/deleteItems")
     public String deleteItems(Integer[] items_id) throws Exception {
@@ -61,7 +92,7 @@ public class ItemsController {
 
     // 批量修改商品提交
     @RequestMapping("/editItemsAllSubmit")
-    public String editItemsAllSubmit(ItemsQueryVo itemsQueryVo) {
+    public String editItemsAllSubmit() {
         return "success";
     }
 

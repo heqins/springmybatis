@@ -29,22 +29,18 @@ public class ItemsServiceImpl implements ItemsService {
     }
 //
 //    @Override
-//    public ItemsCustom findItemsById(Integer id) {
-//
-//        System.out.print(id);
-//
-//
-//
-//        Items items = itemsMapper.selectByPrimaryKey(Integer.valueOf(id));
-//        // 中间进行商品信息处理
-//        // ....
-//        // 返回ItemsCustom
-//        ItemsCustom itemsCustom = new ItemsCustom();
-//        // 将items里的属性值拷贝到itemsCustom里
-//        BeanUtils.copyProperties(items, itemsCustom);
-//        return  itemsCustom;
-//    }
-//
+    public ItemsCustom findItemsById(Integer id) {
+        System.out.print(id);
+        Items items = itemsMapper.selectByPrimaryKey(Integer.valueOf(id));
+        // 中间进行商品信息处理
+        // ....
+        // 返回ItemsCustom
+        ItemsCustom itemsCustom = new ItemsCustom();
+        // 将items里的属性值拷贝到itemsCustom里
+        BeanUtils.copyProperties(items, itemsCustom);
+        return  itemsCustom;
+    }
+
 //    @Override
 //    public void updateItems(Integer id, ItemsCustom itemsCustom) throws Exception {
 //        // 添加业务校验，通常咋service接口对关键参数进行检验

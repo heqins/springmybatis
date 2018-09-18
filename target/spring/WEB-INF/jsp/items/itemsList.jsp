@@ -49,7 +49,6 @@
 				<td><a href="${pageContext.request.contextPath }/items/editItems.html?id=${item.id}">修改</a></td>
 			</tr>
 		</c:forEach>
-
 	</table>
 </form>
 </body>
