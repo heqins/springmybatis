@@ -22,18 +22,29 @@
 </script>
 <body>
 <form name="itemsForm" action="${pageContext.request.contextPath }/items/queryItems.html" method="post">
-	查询条件：
-	<table width="100%" border=1>
-		<tr>
-			<td><input type="submit" value="查询" onclick="queryItems()"/></td>
-			<td><input type="button" value="批量删除" onclick="deleteItems()"></td>
-		</tr>
-	</table>
+    查询条件：
+    <table width="100%" border=1>
+        <tr>
+            <td>
+                商品名称：<input name="itemsCustom.name" />
+                商品类型:
+                <select name="itemType">
+                    <c:forEach items="${itemTypes}" var="itemType">
+                        <option value="${itemType.key}">${itemType.value}</option>
+                    </c:forEach>
+                </select>
+            </td>
+            <td><input type="button" value="查询" onclick="queryItems()"/>
+                <input type="button" value="批量删除" onclick="deleteItems()"/>
+            </td>
+        </tr>
+    </table>
 	商品列表：
 	<table width="100%" border=1>
 		<tr>
 			<td>选择</td>
 			<td>商品名称</td>
+
 			<td>商品价格</td>
 			<td>生产日期</td>
 			<td>商品描述</td>

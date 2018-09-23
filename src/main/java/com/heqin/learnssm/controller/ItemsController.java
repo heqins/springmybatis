@@ -1,7 +1,7 @@
 package com.heqin.learnssm.controller;
 
+import com.heqin.learnssm.exception.CustomException;
 import com.heqin.learnssm.po.ItemsCustom;
-import com.heqin.learnssm.po.ItemsQueryVo;
 import com.heqin.learnssm.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,14 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //使用@Controller来标识它是一个控制器
 //为了对url进行分类管理 ，可以在这里定义根路径，最终访问url是根路径+子路径
@@ -26,6 +28,14 @@ import java.util.List;
 public class ItemsController {
     @Autowired
     private ItemsService itemsService;
+
+    @ModelAttribute("itemTypes")
+    public Map<String, String> getItemTypes() {
+        Map<String, String> itemTypes = new HashMap<>();
+        itemTypes.put("101","数码");
+        itemTypes.put("102","母婴");
+        return itemTypes;
+    }
 
     //商品查询列表
     @RequestMapping("/queryItems")
@@ -49,11 +59,16 @@ public class ItemsController {
         return modelAndView;
     }
 
+    // 在controller中抛出异常
     // 商品信息修改页面的展示
     @RequestMapping(value="/editItems", method={RequestMethod.GET, RequestMethod.POST})
     public String  editItems(Model model, @RequestParam(value="id", required = true)Integer items_id) throws Exception {
 
         ItemsCustom itemsCustom = itemsService.findItemsById(items_id);
+
+        if(itemsCustom == null) {
+            throw new CustomException("修改的商品信息不存在");
+        }
 
         // 返回的是逻辑视图名
         model.addAttribute("itemsCustom", itemsCustom);
@@ -95,5 +110,6 @@ public class ItemsController {
     public String editItemsAllSubmit() {
         return "success";
     }
+
 
 }

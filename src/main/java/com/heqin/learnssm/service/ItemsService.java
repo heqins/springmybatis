@@ -1,5 +1,6 @@
 package com.heqin.learnssm.service;
 
+import com.heqin.learnssm.exception.CustomException;
 import com.heqin.learnssm.po.ItemsCustom;
 import com.heqin.learnssm.po.ItemsQueryVo;
 
@@ -10,8 +11,8 @@ public interface ItemsService {
     public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo) throws Exception;
 //
 //    // 根据id查询商品信息
-    public ItemsCustom findItemsById(Integer id);
+    public ItemsCustom findItemsById(Integer id) throws Exception;
 //
 //    // 修改商品信息
-//    public void updateItems(Integer id, ItemsCustom itemsCustom) throws Exception;
+//    public void updateItems(Integer id, ItemsCustom itemsCustom) throws exception;
 }

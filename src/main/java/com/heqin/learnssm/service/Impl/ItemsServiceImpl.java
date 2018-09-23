@@ -1,6 +1,7 @@
 package com.heqin.learnssm.service.Impl;
 
 
+import com.heqin.learnssm.exception.CustomException;
 import com.heqin.learnssm.mapper.ItemsMapper;
 import com.heqin.learnssm.mapper.ItemsMapperCustom;
 import com.heqin.learnssm.po.Items;
@@ -29,9 +30,14 @@ public class ItemsServiceImpl implements ItemsService {
     }
 //
 //    @Override
-    public ItemsCustom findItemsById(Integer id) {
+    public ItemsCustom findItemsById(Integer id) throws CustomException {
         System.out.print(id);
         Items items = itemsMapper.selectByPrimaryKey(Integer.valueOf(id));
+
+        if(items == null) {
+            throw new CustomException("修改的商品信息不存在!");
+        }
+
         // 中间进行商品信息处理
         // ....
         // 返回ItemsCustom
@@ -42,7 +48,7 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
 //    @Override
-//    public void updateItems(Integer id, ItemsCustom itemsCustom) throws Exception {
+//    public void updateItems(Integer id, ItemsCustom itemsCustom) throws exception {
 //        // 添加业务校验，通常咋service接口对关键参数进行检验
 //        // 校验id是否为空
 //        // 更新商品信息使用updateByPrimaryKeyWithBLOBS根据id更新items表中所有字段，包括大文本类型
